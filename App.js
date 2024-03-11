@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
 import { ThemeProvider } from "./components/ThemeProvider";
-import { ThemeContext, themes } from "./ThemeContext";
 
 export default function App() {
 	const [todos, setTodos] = useState([
@@ -29,30 +28,25 @@ export default function App() {
 
 	return (
 		<ThemeProvider>
-			<View style={styles.container}>
-				<Header />
-				{/* content */}
-				<View style={styles.content}>
-					<AddTodo submitHandler={submitHandler} />
+			<Header />
+			{/* content */}
+			<View style={styles.content}>
+				<AddTodo submitHandler={submitHandler} />
 
-					<FlatList
-						data={todos}
-						renderItem={({ item }) => (
-							<TodoItem item={item} pressHandler={pressHandler} />
-						)}
-					/>
-				</View>
-
-				<StatusBar style="auto" />
+				<FlatList
+					data={todos}
+					renderItem={({ item }) => (
+						<TodoItem item={item} pressHandler={pressHandler} />
+					)}
+				/>
 			</View>
+
+			<StatusBar style="auto" />
 		</ThemeProvider>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
 	content: {
 		marginTop: 64,
 		paddingHorizontal: 32,
