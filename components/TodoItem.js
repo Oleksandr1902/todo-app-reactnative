@@ -1,18 +1,23 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext, themes } from "../ThemeContext";
 
 const TodoItem = ({ item, pressHandler }) => {
+	const { theme } = useContext(ThemeContext);
 	return (
 		<Pressable
 			onPress={() => pressHandler(item.key)}
 			style={({ pressed }) => [
 				{
 					backgroundColor: pressed ? "#bbb" : "transparent",
+					borderColor: theme === themes.light ? "#bbb" : "#fff",
 				},
 				styles.item,
 			]}
 		>
-			<Text>{item.text}</Text>
+			<Text style={{ color: theme === themes.light ? "initial" : "#fff" }}>
+				{item.text}
+			</Text>
 		</Pressable>
 	);
 };
@@ -23,8 +28,7 @@ const styles = StyleSheet.create({
 	item: {
 		padding: 16,
 		marginTop: 16,
-		borderColor: "#bbb",
-		borderWidth: 1,
+		borderWidth: 2,
 		borderStyle: "dashed",
 		borderRadius: 10,
 	},

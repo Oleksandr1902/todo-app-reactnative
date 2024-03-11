@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Pressable, TextInput } from "react-native";
 import React, { useContext, useState } from "react";
-import { ThemeContext } from "../ThemeContext";
+import { ThemeContext, themes } from "../ThemeContext";
 
 const AddTodo = ({ submitHandler }) => {
 	const [text, setText] = useState("");
@@ -14,11 +14,20 @@ const AddTodo = ({ submitHandler }) => {
 	};
 	return (
 		<View>
-			<TextInput
-				style={styles.input}
-				placeholder="new todo..."
-				onChangeText={changeHandler}
-			/>
+			{theme === themes.light ? (
+				<TextInput
+					style={styles.input}
+					placeholder="new todo..."
+					onChangeText={changeHandler}
+				/>
+			) : (
+				<TextInput
+					style={[{ color: "#fff", borderColor: "#fff" }, styles.input]}
+					placeholder="new todo..."
+					onChangeText={changeHandler}
+				/>
+			)}
+
 			<Pressable
 				style={({ pressed }) => [
 					{
@@ -40,7 +49,7 @@ export default AddTodo;
 const styles = StyleSheet.create({
 	input: {
 		borderColor: "#bbb",
-		borderWidth: 1,
+		borderWidth: 2,
 		marginBottom: 16,
 		padding: 16,
 		borderRadius: 10,

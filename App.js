@@ -1,12 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { useContext, useState } from "react";
-import {
-	StyleSheet,
-	View,
-	FlatList,
-	TouchableWithoutFeedback,
-	Keyboard,
-} from "react-native";
+import { useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
@@ -19,7 +13,6 @@ export default function App() {
 		{ text: "create an app", key: 2 },
 		{ text: "play on the switch", key: 3 },
 	]);
-	const { theme } = useContext(ThemeContext);
 
 	const pressHandler = (id) => {
 		setTodos((prevTodos) => {
@@ -33,33 +26,25 @@ export default function App() {
 			return [{ text, key: maxvalue + 1 }, ...prevTodos];
 		});
 	};
-	console.log(themes.light);
-	console.log(theme);
+
 	return (
 		<ThemeProvider>
-			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-				<View
-					style={[
-						{ backgroundColor: theme === themes.dark ? "#20232A" : "#fff" },
-						styles.container,
-					]}
-				>
-					<Header />
-					{/* content */}
-					<View style={styles.content}>
-						<AddTodo submitHandler={submitHandler} />
+			<View style={styles.container}>
+				<Header />
+				{/* content */}
+				<View style={styles.content}>
+					<AddTodo submitHandler={submitHandler} />
 
-						<FlatList
-							data={todos}
-							renderItem={({ item }) => (
-								<TodoItem item={item} pressHandler={pressHandler} />
-							)}
-						/>
-					</View>
-
-					<StatusBar style="auto" />
+					<FlatList
+						data={todos}
+						renderItem={({ item }) => (
+							<TodoItem item={item} pressHandler={pressHandler} />
+						)}
+					/>
 				</View>
-			</TouchableWithoutFeedback>
+
+				<StatusBar style="auto" />
+			</View>
 		</ThemeProvider>
 	);
 }
